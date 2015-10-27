@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specification>
+ <configuration>
+  <targetdir name="statemachines"/>
+  <namespace name="djsharman\examples\statemachines"/>
+ </configuration>
+ <states>
+  <state name="OpenDoorState"/>
+  <state name="ClosedDoorState"/>
+  <state name="LockedDoorState"/>
+ </states>
+ <transitions>
+  <transition from="ClosedDoorState" to="OpenDoorState"   operation="open"/>
+  <transition from="OpenDoorState"   to="ClosedDoorState" operation="close"/>
+  <transition from="ClosedDoorState" to="LockedDoorState" operation="lock"/>
+  <transition from="LockedDoorState" to="ClosedDoorState" operation="unlock"/>
+ </transitions>
+</specification>

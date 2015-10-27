@@ -16,7 +16,7 @@ class SpecificationParser
     /**
      * @param SpecificationFilename $file
      */
-    public function __construct(SpecificationFilename $file)
+    public function __construct($file)
     {
         $this->dom = new fDOMDocument;
         $this->dom->load($file);
@@ -25,17 +25,17 @@ class SpecificationParser
     /**
      * @return string
      */
-    public function getClassName()
+    public function getTargetDir()
     {
-        return $this->dom->queryOne('configuration/class')->getAttribute('name');
+        return $this->dom->queryOne('configuration/targetdir')->getAttribute('name');
     }
 
     /**
      * @return string
      */
-    public function getAbstractClassName()
+    public function getNamespace()
     {
-        return $this->dom->queryOne('configuration/abstractClass')->getAttribute('name');
+        return $this->dom->queryOne('configuration/namespace')->getAttribute('name');
     }
 
     /**
@@ -88,27 +88,22 @@ class SpecificationParser
         $queries = array();
         $states  = array();
 
-        foreach ($this->dom->query('states/state') as $state) {
+        $dom_states = $this->dom->query('states/state');
+        foreach ($dom_states as $state) {
             /** @var TheSeer\fDOM\fDOMElement $state */
 
-            $states[$state->getAttribute('name')] = array(
+            $state_name = $state->getAttribute('name');
+            $states[$state_name] = array(
                 'transitions' => array(),
-                'query'       => $state->getAttribute('query')
+                'query'       => 'is'.$state_name
             );
 
-            $queries[] = $state->getAttribute('query');
+            $queries[] = 'is'.$state_name;
         }
 
         $operations = array();
 
-        foreach ($this->dom->query('operations/operation') as $operation) {
-            /** @var TheSeer\fDOM\fDOMElement $operation */
 
-            $operations[$operation->getAttribute('name')] = array(
-                'allowed'    => $operation->getAttribute('allowed'),
-                'disallowed' => $operation->getAttribute('disallowed')
-            );
-        }
 
         foreach ($this->dom->query('transitions/transition') as $transition) {
             /** @var TheSeer\fDOM\fDOMElement $transition */
@@ -118,6 +113,15 @@ class SpecificationParser
             $operation = $transition->getAttribute('operation');
 
             $states[$from]['transitions'][$operation] = $to;
+        }
+
+        foreach ($this->dom->query('transitions/transition') as $transition) {
+            /** @var TheSeer\fDOM\fDOMElement $operation */
+            $operation = $transition->getAttribute('operation');
+            $operations[$operation] = array(
+                'allowed'    => 'can'.ucfirst($operation),
+                'disallowed' => 'cannot'.ucfirst($operation),
+            );
         }
 
         $this->specification = array(

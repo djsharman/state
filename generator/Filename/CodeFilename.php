@@ -1,6 +1,14 @@
 <?php
 class CodeFilename
 {
+
+    public static function getInst() {
+        static $inst = null;
+        if($inst === null) {
+            $inst = new self();
+        }
+        return $inst;
+    }
     /**
      * @var string
      */

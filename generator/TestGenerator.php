@@ -1,5 +1,5 @@
 <?php
-class TestGenerator
+class TestGenerator extends GenBase
 {
     /**
      * @param array  $data
@@ -10,8 +10,13 @@ class TestGenerator
      * @param string $className
      * @param string $abstractState
      */
-    public function generate(array $data, array $operations, array $queries, array $states, $state, $className, $abstractState)
+    public function generate($use, $namespace, array $data, array $operations, array $queries, array $states, $state, $className, $abstractState, $target_dir)
     {
+
+        $output_filename = $target_dir.$state . 'Test'.'.php';
+
+        $this->procExistingContent($output_filename);
+
         $buffer        = '';
         $state         = substr($state, 0, strlen($state) - strlen('State'));
         $abstractState = substr($abstractState, 0, strlen($abstractState) - strlen('State'));
@@ -26,23 +31,28 @@ class TestGenerator
                 $test   = str_replace('Is', 'IsNot', ucfirst($query));
             }
 
-            $buffer .= str_replace(
-                array(
-                    '___CLASS___',
-                    '___OBJECT___',
-                    '___TEST___',
-                    '___ASSERT___',
-                    '___QUERY___'
-                ),
-                array(
-                    $className,
-                    strtolower($className),
-                    $test,
-                    $assert,
-                    $query
-                ),
-                $template
-            );
+            if(!$this->methodExists('test'.$test)) {
+
+                $buffer .= str_replace(
+                    array(
+                        '___NAMESPACE___',
+                        '___CLASS___',
+                        '___OBJECT___',
+                        '___TEST___',
+                        '___ASSERT___',
+                        '___QUERY___'
+                    ),
+                    array(
+                        $namespace,
+                        $className,
+                        strtolower($className),
+                        $test,
+                        $assert,
+                        $query
+                    ),
+                    $template
+                );
+            }
         }
 
         $operationTemplate          = file_get_contents(new TemplateFilename('TestMethodOperation'));
@@ -60,38 +70,49 @@ class TestGenerator
                 $_state   = $abstractState;
                 $query    = '';
             }
-
-            $buffer .= str_replace(
-                array(
-                    '___CLASS___',
-                    '___OBJECT___',
-                    '___STATE___',
-                    '___TEST___',
-                    '___OPERATION___',
-                    '___QUERY___'
-                ),
-                array(
-                    $className,
-                    strtolower($className),
-                    $_state,
-                    $test,
-                    $operation,
-                    $query
-                ),
-                $template
-            );
+            if(!$this->methodExists('test'.$test)) {
+                $buffer .= str_replace(
+                    array(
+                        '___NAMESPACE___',
+                        '___CLASS___',
+                        '___OBJECT___',
+                        '___STATE___',
+                        '___TEST___',
+                        '___OPERATION___',
+                        '___QUERY___'
+                    ),
+                    array(
+                        $namespace,
+                        $className,
+                        strtolower($className),
+                        $_state,
+                        $test,
+                        $operation,
+                        $query
+                    ),
+                    $template
+                );
+            }
         }
 
         file_put_contents(
-            new TestFilename($state . 'Test'),
+            $output_filename,
             str_replace(
                 array(
+                    '___USE___',
+                    '___NAMESPACE___',
+                    '___CUSTOMCODE_SECTION1___',
+                    '___CUSTOMCODE_SECTION2___',
                     '___STATE___',
                     '___CLASS___',
                     '___OBJECT___',
                     '___METHODS___'
                 ),
                 array(
+                    $use,
+                    $namespace,
+                    $this->getSection1(),
+                    $this->getSection2(),
                     $state,
                     $className,
                     strtolower($className),

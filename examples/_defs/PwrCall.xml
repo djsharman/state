@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specification>
+ <configuration>
+  <targetdir name="statemachines"/>
+  <namespace name="djsharman\examples\statemachines"/>
+ </configuration>
+ <states>
+  <state name="StartUpState"/>
+  <state name="WaitForUserRegState"/>
+  <state name="WaitForUserParkedState"/>
+  <state name="UserParkedState"/>
+  <state name="NextCallState"/>
+  <state name="InCallState"/>
+  <state name="AgentCallHangupState"/>
+  <state name="CustCallHangupState"/>
+  <state name="WPCompleteState"/>
+  <state name="UserRegFailState"/>
+  <state name="UserParkFailState"/>
+  <state name="TechnicalProblemState"/>
+  <state name="EndState"/>
+ </states>
+ <transitions>
+  <transition from="StartUpState" to="WaitForUserRegState" operation="reqRegState"/>
+  <transition from="StartUpState"  to="EndState" operation="cancel"/>
+  <transition from="StartUpState"  to="WPCompleteState" operation="wpComplete"/>
+  <transition from="StartUpState"  to="TechnicalProblemState" operation="techProblem"/>
+  
+  <transition from="WaitForUserRegState" to="WaitForUserParkedState" operation="userRegistered"/>
+  <transition from="WaitForUserRegState" to="UserRegFailState" operation="userRegFailed"/>
+  <transition from="WaitForUserRegState"  to="EndState" operation="cancel"/>
+  <transition from="WaitForUserRegState"  to="TechnicalProblemState" operation="techProblem"/>
+  
+  <transition from="WaitForUserParkedState"  to="UserParkedState" operation="userParked"/>
+  <transition from="WaitForUserParkedState"  to="UserParkFailState" operation="userParkFailed"/>
+  <transition from="WaitForUserParkedState"  to="EndState" operation="cancel"/>
+  <transition from="WaitForUserParkedState"  to="TechnicalProblemState" operation="techProblem"/>
+  
+  <transition from="UserParkedState"  to="NextCallState" operation="startCalling"/>
+  <transition from="UserParkedState"  to="EndState" operation="cancel"/>
+  <transition from="UserParkedState"  to="TechnicalProblemState" operation="techProblem"/>
+  
+  <transition from="NextCallState"  to="InCallState" operation="showCall"/>
+  <transition from="NextCallState"  to="WPCompleteState" operation="wpComplete"/>
+  <transition from="NextCallState"  to="TechnicalProblemState" operation="techProblem"/>
+  
+  
+  <transition from="WPCompleteState"  to="EndState" operation="stopCalling"/>
+  
+  <transition from="InCallState"  to="AgentCallHangupState" operation="agentHangup"/>
+  <transition from="InCallState"  to="CustCallHangupState" operation="customerHangup"/>
+  <transition from="InCallState"  to="TechnicalProblemState" operation="techProblem"/>
+  <!--<transition from="InCallState"  to="NextCallState" operation="forceNextCall"/> -->
+
+  <transition from="AgentCallHangupState"  to="TechnicalProblemState" operation="techProblem"/>
+  <transition from="AgentCallHangupState"  to="EndState" operation="stopCalling"/>
+  <transition from="AgentCallHangupState"  to="NextCallState" operation="goNextCall"/>
+  <transition from="AgentCallHangupState"  to="InCallState" operation="redialCustomer"/>
+  
+  <transition from="CustCallHangupState"  to="TechnicalProblemState" operation="techProblem"/>
+  <transition from="CustCallHangupState"  to="EndState" operation="stopCalling"/>j
+  <transition from="CustCallHangupState"  to="NextCallState" operation="goNextCall"/>
+  <transition from="CustCallHangupState"  to="InCallState" operation="redialCustomer"/>
+  
+  <transition from="TechnicalProblemState" to="StartUpState" operation="restartAfterTechFailure"/>
+  <transition from="TechnicalProblemState"  to="EndState" operation="cancel"/>
+  
+  <transition from="UserParkFailState" to="StartUpState" operation="restartAfterTechFailure"/>
+  <transition from="UserParkFailState"  to="EndState" operation="cancel"/>
+  
+  <transition from="UserRegFailState" to="StartUpState" operation="restartAfterTechFailure"/>
+  <transition from="UserRegFailState"  to="EndState" operation="cancel"/>
+ </transitions>
+</specification>

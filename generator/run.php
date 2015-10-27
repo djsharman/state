@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
+	if (!file_exists((__DIR__ . '/../vendor/autoload.php'))) {
     die(
         'You need to set up the project dependencies using the following commands:' . PHP_EOL .
         'wget https://getcomposer.org/composer.phar' . PHP_EOL .
@@ -11,27 +11,89 @@ if (!file_exists(__DIR__ . '/../vendor/autoload.php')) {
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/autoload.php';
 
-$parser            = new SpecificationParser(new SpecificationFilename);
-$className         = $parser->getClassName();
-$abstractClassName = $parser->getAbstractClassName();
-$interfaceName     = $parser->getInterfaceClassName();
-$operations        = $parser->getOperations();
-$queries           = $parser->getQueries();
-$states            = $parser->getStates();
+require __DIR__ . '/GenBase.php';
 
-$generator = new InterfaceGenerator;
-$generator->generate($operations, $interfaceName);
 
-$generator = new AbstractStateClassGenerator;
-$generator->generate($operations, $abstractClassName, $interfaceName);
+$base_dir = getcwd();
+$defs_loc = $base_dir.'/'.$argv[1].'/';
 
-$generator = new ClassGenerator;
-$generator->generate($operations, $states, $className, $interfaceName);
 
-$codeGenerator = new StateClassGenerator;
-$testGenerator = new TestGenerator;
+$file_list = \djsharman\libraries\OS_DirFileList::getFileList($defs_loc, array(), true, array('xml'));
 
-foreach ($states as $state => $data) {
-    $codeGenerator->generate($data, $state, $abstractClassName);
-    $testGenerator->generate($data, $operations, $queries, $states, $state, $className, $abstractClassName);
+function checkDirExists($target_dir) {
+    $dir_exists = is_dir($target_dir);
+    if($dir_exists == false) {
+        $res = mkdir($target_dir, '755', true);
+        if($res == false) {
+            die('could not create gen directory');
+        }
+    }
+
 }
+
+if($file_list == false) {
+	echo "Error: your _defs directory is invalid\n";
+	echo "===========================================\n";
+	return false;
+
+}
+
+
+echo "===========================================\n";
+echo "===========================================\n";
+
+foreach($file_list as $file) {
+	
+    $path_parts = pathinfo($file);
+
+    $className = $path_parts['filename'];
+    
+    echo "Processing $className \n";
+    
+    $interfaceName     = $className.'State';
+    $abstractClassName = 'Abstract'.$interfaceName;
+
+    $parser            = new SpecificationParser($file);
+
+    $conf_namespace =  $parser->getNamespace();
+    $namespace = $conf_namespace.$className;
+    $test_namespace = $conf_namespace.$className.'\test';
+
+    $conf_target_dir   = $parser->getTargetDir();
+    $target_dir        = $base_dir.'/'.$conf_target_dir.'/'.$className.'/';
+    $target_test_dir   = $target_dir.'/test/';
+
+    checkDirExists($target_dir);
+    checkDirExists($target_test_dir);
+
+    $operations        = $parser->getOperations();
+    $queries           = $parser->getQueries();
+    $states            = $parser->getStates();
+
+    $generator = new InterfaceGenerator;
+    $generator->generate($namespace, $operations, $interfaceName, $target_dir);
+
+    $generator = new AbstractStateClassGenerator;
+    $generator->generate($namespace, $operations, $abstractClassName, $interfaceName, $target_dir);
+
+    $generator = new ClassGenerator;
+    $generator->generate($namespace, $operations, $states, $className, $interfaceName, $target_dir);
+
+    $codeGenerator = new StateClassGenerator();
+    $testGenerator = new TestGenerator;
+
+    // namespace of the class to be tested
+    $use = '\\'.$namespace;
+
+    foreach ($states as $state => $data) {
+    	echo "Generating $className -> $state\n";
+        $codeGenerator->generate($namespace, $data, $state, $abstractClassName, $target_dir);
+        $testGenerator->generate($use, $test_namespace, $data, $operations, $queries, $states, $state, $className, $abstractClassName, $target_test_dir);
+    }
+    
+    echo "===========================================\n";
+
+}
+
+echo "Done\n";
+echo "===========================================\n";

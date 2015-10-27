@@ -1,7 +1,8 @@
 {
     "require": {
-        "phpunit/php-token-stream": "*",
         "sebastian/finder-facade": "*",
-        "theseer/fdomdocument": "*"
+        "djsharman/libraries": "*",
+        "phpunit/php-token-stream": "*",
+        "theseer/fdomdocument": "*"  
     }
 }
