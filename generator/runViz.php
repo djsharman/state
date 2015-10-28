@@ -14,7 +14,10 @@ require __DIR__ . '/autoload.php';
 require __DIR__ . '/GenBase.php';
 
 $base_dir = getcwd();
-$defs_loc = $base_dir.'/'.$argv[1].'/';
+
+$defs_arg = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $argv[1]);
+
+$defs_loc = $base_dir.'/'.$defs_arg.'/';
 $diagram_loc = $defs_loc.'/diagrams/';
 
 

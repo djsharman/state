@@ -9,18 +9,15 @@ namespace djsharman\examples\statemachinesPwrCall;
 class StartUpState extends AbstractPwrCallState {
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE2
-	
-	public function onEnterState() {
+
+    public function onEnterState() {
 		/*
 		 * When the code is here between the START CUSTOMCODE and END CUSTOMCODE comment elements
 		 * your code will 
 		 */
 	}
-    
 
 //###END_CUSTOMCODE2
-
-
 
     public function onExitState() {
 

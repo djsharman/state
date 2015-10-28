@@ -15,7 +15,12 @@ require __DIR__ . '/GenBase.php';
 
 
 $base_dir = getcwd();
-$defs_loc = $base_dir.'/'.$argv[1].'/';
+echo "Current working directory is $base_dir\n";
+
+$defs_arg = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $argv[1]);
+
+$defs_loc = $base_dir.'/'.$defs_arg.'/';
+echo "State machine definitions are contained in $defs_loc\n";
 
 
 $file_list = \djsharman\libraries\OS_DirFileList::getFileList($defs_loc, array(), true, array('xml'));
