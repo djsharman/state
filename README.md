@@ -41,7 +41,7 @@ and
 ```php
 //###END_CUSTOMCODE2
 ```
-comments. For an example please see onEnterState function in the StartUpState.php file in the PwrCall example folder.
+comments. For an example please see onEnterState ([source](examples/statemachines/PwrCall/StartUpState.php)) function in the StartUpState.php file in the PwrCall example folder.
 
 ## Implementing the generator to work with your existing code
 
