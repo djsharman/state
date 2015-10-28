@@ -13,7 +13,7 @@ class StartUpState extends AbstractPwrCallState {
     public function onEnterState() {
 		/*
 		 * When the code is here between the START CUSTOMCODE and END CUSTOMCODE comment elements
-		 * your code will 
+		 * your code will not be overwritten when you regenerate your statemachines.
 		 */
 	}
 
