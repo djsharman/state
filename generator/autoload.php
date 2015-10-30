@@ -10,19 +10,23 @@ spl_autoload_register(
                 'abstractstateclassgenerator' => '/AbstractStateClassGenerator.php',
                 'classgenerator' => '/ClassGenerator.php',
                 'codefilename' => '/Filename/CodeFilename.php',
+                'genbase' => '/GenBase.php',
                 'interfacegenerator' => '/InterfaceGenerator.php',
                 'specificationfilename' => '/Filename/SpecificationFilename.php',
                 'specificationparser' => '/SpecificationParser.php',
                 'stateclassgenerator' => '/StateClassGenerator.php',
                 'templatefilename' => '/Filename/TemplateFilename.php',
                 'testfilename' => '/Filename/TestFilename.php',
-                'testgenerator' => '/TestGenerator.php'
+                'testgenerator' => '/TestGenerator.php',
+                'transitionexceptiongenerator' => '/TransitionExceptionGenerator.php'
             );
         }
         $cn = strtolower($class);
         if (isset($classes[$cn])) {
             require __DIR__ . $classes[$cn];
         }
-    }
+    },
+    true,
+    false
 );
 // @codeCoverageIgnoreEnd

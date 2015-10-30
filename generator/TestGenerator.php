@@ -10,7 +10,7 @@ class TestGenerator extends GenBase
      * @param string $className
      * @param string $abstractState
      */
-    public function generate($use, $namespace, array $data, array $operations, array $queries, array $states, $state, $className, $abstractState, $target_dir)
+    public function generate($use, $target_namespace, $namespace, array $data, array $operations, array $queries, array $states, $state, $className, $abstractState, $target_dir)
     {
 
         $output_filename = $target_dir.$state . 'Test'.'.php';
@@ -44,7 +44,7 @@ class TestGenerator extends GenBase
                     ),
                     array(
                         $namespace,
-                        $className,
+                        '\\'.$target_namespace.'\\'.$className,
                         strtolower($className),
                         $test,
                         $assert,
@@ -74,6 +74,7 @@ class TestGenerator extends GenBase
                 $buffer .= str_replace(
                     array(
                         '___NAMESPACE___',
+                    	'___TARGET_NAMESPACE___',
                         '___CLASS___',
                         '___OBJECT___',
                         '___STATE___',
@@ -83,9 +84,10 @@ class TestGenerator extends GenBase
                     ),
                     array(
                         $namespace,
-                        $className,
+                    	$target_namespace,
+                        '\\'.$target_namespace.'\\'.$className,
                         strtolower($className),
-                        $_state,
+                        '\\'.$target_namespace.'\\'.$_state,
                         $test,
                         $operation,
                         $query
@@ -100,6 +102,7 @@ class TestGenerator extends GenBase
             str_replace(
                 array(
                     '___USE___',
+                	'___TARGET_NAMESPACE___',
                     '___NAMESPACE___',
                     '___CUSTOMCODE_SECTION1___',
                     '___CUSTOMCODE_SECTION2___',
@@ -110,6 +113,7 @@ class TestGenerator extends GenBase
                 ),
                 array(
                     $use,
+                	$target_namespace,
                     $namespace,
                     $this->getSection1(),
                     $this->getSection2(),

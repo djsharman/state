@@ -1,6 +1,8 @@
 <?php
-namespace djsharman\examples\statemachinesDoor\test;
-use \djsharman\examples\statemachinesDoor;
+namespace examples\statemachines\Door\test;
+use \examples\statemachines\Door\Door;
+use \examples\statemachines\Door\OpenDoorState;
+
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
 
@@ -14,8 +16,8 @@ class OpenDoorTest extends \PHPUnit_Framework_TestCase {
     private $door;
 
     /**
-     * @covers Door::__construct
-     * @covers Door::setState
+     * @covers \examples\statemachines\Door\Door::__construct
+     * @covers \examples\statemachines\Door\Door::setState
      */
     protected function setUp() {
         $this->door = new Door(new OpenDoorState);
@@ -28,39 +30,39 @@ class OpenDoorTest extends \PHPUnit_Framework_TestCase {
 //###END_CUSTOMCODE2
 
     /**
-     * @covers Door::isOpenDoorState
+     * @covers \examples\statemachines\Door\Door::isOpenDoorState
      */
     public function testIsOpenDoorState() {
         $this->assertTrue($this->door->isOpenDoorState());
     }
 
     /**
-     * @covers Door::isClosedDoorState
+     * @covers \examples\statemachines\Door\Door::isClosedDoorState
      */
     public function testIsNotClosedDoorState() {
         $this->assertFalse($this->door->isClosedDoorState());
     }
 
     /**
-     * @covers Door::isLockedDoorState
+     * @covers \examples\statemachines\Door\Door::isLockedDoorState
      */
     public function testIsNotLockedDoorState() {
         $this->assertFalse($this->door->isLockedDoorState());
     }
 
     /**
-     * @covers Door::open
-     * @covers AbstractDoorState::open
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\Door\Door::open
+     * @covers \examples\statemachines\Door\AbstractDoorState::open
+     * @expectedException \examples\statemachines\Door\IllegalStateTransitionException
      */
     public function testCannotOpen() {
         $this->door->open();
     }
 
     /**
-     * @covers Door::close
-     * @covers OpenDoorState::close
-     * @uses   Door::isClosedDoorState
+     * @covers \examples\statemachines\Door\Door::close
+     * @covers \examples\statemachines\Door\OpenDoorState::close
+     * @uses   \examples\statemachines\Door\Door::isClosedDoorState
      */
     public function testCanClose() {
         $this->door->close();
@@ -68,18 +70,18 @@ class OpenDoorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Door::lock
-     * @covers AbstractDoorState::lock
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\Door\Door::lock
+     * @covers \examples\statemachines\Door\AbstractDoorState::lock
+     * @expectedException \examples\statemachines\Door\IllegalStateTransitionException
      */
     public function testCannotLock() {
         $this->door->lock();
     }
 
     /**
-     * @covers Door::unlock
-     * @covers AbstractDoorState::unlock
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\Door\Door::unlock
+     * @covers \examples\statemachines\Door\AbstractDoorState::unlock
+     * @expectedException \examples\statemachines\Door\IllegalStateTransitionException
      */
     public function testCannotUnlock() {
         $this->door->unlock();

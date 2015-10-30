@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+
 	if (!file_exists((__DIR__ . '/../vendor/autoload.php'))) {
     die(
         'You need to set up the project dependencies using the following commands:' . PHP_EOL .
@@ -61,8 +62,12 @@ foreach($file_list as $file) {
     $parser            = new SpecificationParser($file);
 
     $conf_namespace =  $parser->getNamespace();
-    $namespace = $conf_namespace.$className;
-    $test_namespace = $conf_namespace.$className.'\test';
+    $namespace = $conf_namespace.'\\'.$className;
+    $test_namespace = $namespace.'\\test';
+    
+    // the use string for the test cases
+    $use = '\\'.$namespace.'\\'.$className;
+    
 
     $conf_target_dir   = $parser->getTargetDir();
     $target_dir        = $base_dir.'/'.$conf_target_dir.'/'.$className.'/';
@@ -77,6 +82,11 @@ foreach($file_list as $file) {
 
     $generator = new InterfaceGenerator;
     $generator->generate($namespace, $operations, $interfaceName, $target_dir);
+    
+    
+    $generator = new TransitionExceptionGenerator;
+    $generator->generate($namespace, $target_dir);
+    
 
     $generator = new AbstractStateClassGenerator;
     $generator->generate($namespace, $operations, $abstractClassName, $interfaceName, $target_dir);
@@ -88,12 +98,12 @@ foreach($file_list as $file) {
     $testGenerator = new TestGenerator;
 
     // namespace of the class to be tested
-    $use = '\\'.$namespace;
+    
 
     foreach ($states as $state => $data) {
     	echo "Generating $className -> $state\n";
         $codeGenerator->generate($namespace, $data, $state, $abstractClassName, $target_dir);
-        $testGenerator->generate($use, $test_namespace, $data, $operations, $queries, $states, $state, $className, $abstractClassName, $target_test_dir);
+        $testGenerator->generate($use, $namespace, $test_namespace, $data, $operations, $queries, $states, $state, $className, $abstractClassName, $target_test_dir);
     }
     
     echo "===========================================\n";

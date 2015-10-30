@@ -2,7 +2,7 @@
 <specification>
  <configuration>
   <targetdir name="statemachines"/>
-  <namespace name="djsharman\examples\statemachines"/>
+  <namespace name="examples\statemachines"/>
  </configuration>
  <states>
   <state name="OpenDoorState"/>

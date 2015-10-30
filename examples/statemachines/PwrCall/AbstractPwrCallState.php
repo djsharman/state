@@ -1,5 +1,6 @@
 <?php
-namespace djsharman\examples\statemachinesPwrCall;
+namespace examples\statemachines\PwrCall;
+use \examples\statemachines\PwrCall\IllegalStateTransitionException;
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
 

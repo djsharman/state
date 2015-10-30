@@ -1,6 +1,8 @@
 <?php
-namespace djsharman\examples\statemachinesPwrCall\test;
-use \djsharman\examples\statemachinesPwrCall;
+namespace examples\statemachines\PwrCall\test;
+use \examples\statemachines\PwrCall\PwrCall;
+use \examples\statemachines\PwrCall\AgentCallHangupState;
+
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
 
@@ -14,8 +16,8 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
     private $pwrcall;
 
     /**
-     * @covers PwrCall::__construct
-     * @covers PwrCall::setState
+     * @covers \examples\statemachines\PwrCall\PwrCall::__construct
+     * @covers \examples\statemachines\PwrCall\PwrCall::setState
      */
     protected function setUp() {
         $this->pwrcall = new PwrCall(new AgentCallHangupState);
@@ -28,127 +30,127 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
 //###END_CUSTOMCODE2
 
     /**
-     * @covers PwrCall::isStartUpState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isStartUpState
      */
     public function testIsNotStartUpState() {
         $this->assertFalse($this->pwrcall->isStartUpState());
     }
 
     /**
-     * @covers PwrCall::isWaitForUserRegState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isWaitForUserRegState
      */
     public function testIsNotWaitForUserRegState() {
         $this->assertFalse($this->pwrcall->isWaitForUserRegState());
     }
 
     /**
-     * @covers PwrCall::isWaitForUserParkedState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isWaitForUserParkedState
      */
     public function testIsNotWaitForUserParkedState() {
         $this->assertFalse($this->pwrcall->isWaitForUserParkedState());
     }
 
     /**
-     * @covers PwrCall::isUserParkedState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isUserParkedState
      */
     public function testIsNotUserParkedState() {
         $this->assertFalse($this->pwrcall->isUserParkedState());
     }
 
     /**
-     * @covers PwrCall::isNextCallState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isNextCallState
      */
     public function testIsNotNextCallState() {
         $this->assertFalse($this->pwrcall->isNextCallState());
     }
 
     /**
-     * @covers PwrCall::isInCallState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isInCallState
      */
     public function testIsNotInCallState() {
         $this->assertFalse($this->pwrcall->isInCallState());
     }
 
     /**
-     * @covers PwrCall::isAgentCallHangupState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isAgentCallHangupState
      */
     public function testIsAgentCallHangupState() {
         $this->assertTrue($this->pwrcall->isAgentCallHangupState());
     }
 
     /**
-     * @covers PwrCall::isCustCallHangupState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isCustCallHangupState
      */
     public function testIsNotCustCallHangupState() {
         $this->assertFalse($this->pwrcall->isCustCallHangupState());
     }
 
     /**
-     * @covers PwrCall::isWPCompleteState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isWPCompleteState
      */
     public function testIsNotWPCompleteState() {
         $this->assertFalse($this->pwrcall->isWPCompleteState());
     }
 
     /**
-     * @covers PwrCall::isUserRegFailState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isUserRegFailState
      */
     public function testIsNotUserRegFailState() {
         $this->assertFalse($this->pwrcall->isUserRegFailState());
     }
 
     /**
-     * @covers PwrCall::isUserParkFailState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isUserParkFailState
      */
     public function testIsNotUserParkFailState() {
         $this->assertFalse($this->pwrcall->isUserParkFailState());
     }
 
     /**
-     * @covers PwrCall::isTechnicalProblemState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isTechnicalProblemState
      */
     public function testIsNotTechnicalProblemState() {
         $this->assertFalse($this->pwrcall->isTechnicalProblemState());
     }
 
     /**
-     * @covers PwrCall::isEndState
+     * @covers \examples\statemachines\PwrCall\PwrCall::isEndState
      */
     public function testIsNotEndState() {
         $this->assertFalse($this->pwrcall->isEndState());
     }
 
     /**
-     * @covers PwrCall::reqRegState
-     * @covers AbstractPwrCallState::reqRegState
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::reqRegState
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::reqRegState
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotReqRegState() {
         $this->pwrcall->reqRegState();
     }
 
     /**
-     * @covers PwrCall::cancel
-     * @covers AbstractPwrCallState::cancel
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::cancel
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::cancel
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotCancel() {
         $this->pwrcall->cancel();
     }
 
     /**
-     * @covers PwrCall::wpComplete
-     * @covers AbstractPwrCallState::wpComplete
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::wpComplete
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::wpComplete
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotWpComplete() {
         $this->pwrcall->wpComplete();
     }
 
     /**
-     * @covers PwrCall::techProblem
-     * @covers AgentCallHangupState::techProblem
-     * @uses   PwrCall::isTechnicalProblemState
+     * @covers \examples\statemachines\PwrCall\PwrCall::techProblem
+     * @covers \examples\statemachines\PwrCall\AgentCallHangupState::techProblem
+     * @uses   \examples\statemachines\PwrCall\PwrCall::isTechnicalProblemState
      */
     public function testCanTechProblem() {
         $this->pwrcall->techProblem();
@@ -156,63 +158,63 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PwrCall::userRegistered
-     * @covers AbstractPwrCallState::userRegistered
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::userRegistered
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::userRegistered
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotUserRegistered() {
         $this->pwrcall->userRegistered();
     }
 
     /**
-     * @covers PwrCall::userRegFailed
-     * @covers AbstractPwrCallState::userRegFailed
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::userRegFailed
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::userRegFailed
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotUserRegFailed() {
         $this->pwrcall->userRegFailed();
     }
 
     /**
-     * @covers PwrCall::userParked
-     * @covers AbstractPwrCallState::userParked
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::userParked
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::userParked
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotUserParked() {
         $this->pwrcall->userParked();
     }
 
     /**
-     * @covers PwrCall::userParkFailed
-     * @covers AbstractPwrCallState::userParkFailed
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::userParkFailed
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::userParkFailed
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotUserParkFailed() {
         $this->pwrcall->userParkFailed();
     }
 
     /**
-     * @covers PwrCall::startCalling
-     * @covers AbstractPwrCallState::startCalling
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::startCalling
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::startCalling
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotStartCalling() {
         $this->pwrcall->startCalling();
     }
 
     /**
-     * @covers PwrCall::showCall
-     * @covers AbstractPwrCallState::showCall
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::showCall
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::showCall
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotShowCall() {
         $this->pwrcall->showCall();
     }
 
     /**
-     * @covers PwrCall::stopCalling
-     * @covers AgentCallHangupState::stopCalling
-     * @uses   PwrCall::isEndState
+     * @covers \examples\statemachines\PwrCall\PwrCall::stopCalling
+     * @covers \examples\statemachines\PwrCall\AgentCallHangupState::stopCalling
+     * @uses   \examples\statemachines\PwrCall\PwrCall::isEndState
      */
     public function testCanStopCalling() {
         $this->pwrcall->stopCalling();
@@ -220,27 +222,27 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PwrCall::agentHangup
-     * @covers AbstractPwrCallState::agentHangup
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::agentHangup
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::agentHangup
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotAgentHangup() {
         $this->pwrcall->agentHangup();
     }
 
     /**
-     * @covers PwrCall::customerHangup
-     * @covers AbstractPwrCallState::customerHangup
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::customerHangup
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::customerHangup
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotCustomerHangup() {
         $this->pwrcall->customerHangup();
     }
 
     /**
-     * @covers PwrCall::goNextCall
-     * @covers AgentCallHangupState::goNextCall
-     * @uses   PwrCall::isNextCallState
+     * @covers \examples\statemachines\PwrCall\PwrCall::goNextCall
+     * @covers \examples\statemachines\PwrCall\AgentCallHangupState::goNextCall
+     * @uses   \examples\statemachines\PwrCall\PwrCall::isNextCallState
      */
     public function testCanGoNextCall() {
         $this->pwrcall->goNextCall();
@@ -248,9 +250,9 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PwrCall::redialCustomer
-     * @covers AgentCallHangupState::redialCustomer
-     * @uses   PwrCall::isInCallState
+     * @covers \examples\statemachines\PwrCall\PwrCall::redialCustomer
+     * @covers \examples\statemachines\PwrCall\AgentCallHangupState::redialCustomer
+     * @uses   \examples\statemachines\PwrCall\PwrCall::isInCallState
      */
     public function testCanRedialCustomer() {
         $this->pwrcall->redialCustomer();
@@ -258,9 +260,9 @@ class AgentCallHangupTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers PwrCall::restartAfterTechFailure
-     * @covers AbstractPwrCallState::restartAfterTechFailure
-     * @expectedException IllegalStateTransitionException
+     * @covers \examples\statemachines\PwrCall\PwrCall::restartAfterTechFailure
+     * @covers \examples\statemachines\PwrCall\AbstractPwrCallState::restartAfterTechFailure
+     * @expectedException \examples\statemachines\PwrCall\IllegalStateTransitionException
      */
     public function testCannotRestartAfterTechFailure() {
         $this->pwrcall->restartAfterTechFailure();

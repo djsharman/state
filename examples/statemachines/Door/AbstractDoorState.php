@@ -1,5 +1,6 @@
 <?php
-namespace djsharman\examples\statemachinesDoor;
+namespace examples\statemachines\Door;
+use \examples\statemachines\Door\IllegalStateTransitionException;
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
 

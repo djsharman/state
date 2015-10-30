@@ -3,9 +3,6 @@
  <target name="build" depends="prepare,visualize,phpunit"/>
 
  <target name="clean">
-  <delete dir="${basedir}/build/coverage"/>
-  <delete file="${basedir}/build/graph.dot"/>
-  <delete file="${basedir}/build/graph.pdf"/>
  </target>
 
  <target name="prepare" depends="clean,generate,phpab">
@@ -13,33 +10,30 @@
  </target>
 
  <target name="generate">
-  <exec executable="${basedir}/generator/run.php"/>
+  <exec executable="${basedir}/generator/run.php" dir="${basedir}/examples" >
+   <arg line="_defs"/>
+  </exec>
  </target>
 
  <target name="phpab">
   <exec executable="phpab">
    <arg value="--output" />
-   <arg path="example/src/autoload.php" />
-   <arg path="example/src" />
+   <arg path="examples/autoload.php" />
+   <arg path="examples/" />
   </exec>
 
   <exec executable="phpab">
    <arg value="--output" />
    <arg path="generator/autoload.php" />
-   <arg path="generator" />
+   <arg path="generator/" />
   </exec>
  </target>
 
  <target name="visualize">
-  <exec executable="${basedir}/build/visualize.php" output="${basedir}/build/graph.dot"/>
-
-  <exec executable="dot">
-   <arg value="-Tpng"/>
-   <arg value="-o"/>
-   <arg path="${basedir}/build/graph.png"/>
-   <arg path="${basedir}/build/graph.dot"/>
-  </exec>
- </target>
+  <exec executable="${basedir}/generator/runViz.php" dir="${basedir}/examples" >
+        <arg line="_defs"/>
+  </exec> 
+</target>
 
  <target name="phpunit">
   <exec executable="phpunit" failonerror="true">

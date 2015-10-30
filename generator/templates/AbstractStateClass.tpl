@@ -1,5 +1,6 @@
 <?php
 namespace ___NAMESPACE___;
+use \___NAMESPACE___\IllegalStateTransitionException;
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
 

@@ -1,8 +1,12 @@
 {
+    "name": "djsharman/state",
+    "description": "The State design pattern. Implemented in PHP and with style.",
     "require": {
+    	"php": ">=5.3.0",
         "sebastian/finder-facade": "*",
         "djsharman/libraries": "*",
         "phpunit/php-token-stream": "*",
-        "theseer/fdomdocument": "*"  
+        "theseer/fdomdocument": "*",
+        "phpunit/phpunit": "5.0.*"  
     }
 }
