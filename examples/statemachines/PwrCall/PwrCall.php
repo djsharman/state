@@ -231,8 +231,15 @@ class PwrCall {
 
 
 
-    private function setState(PwrCallState $state) {
+    public function setState(PwrCallState $state) {
+
+        if($this->state !== null) {
+            $this->state->onExitState();
+        }
+
         $this->state = $state;
+        $this->state->onEnterState();
+
     }
 
 }

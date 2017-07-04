@@ -15,6 +15,9 @@ interface DoorState {
 //###END_CUSTOMCODE2
 
 
+    public function setParentStateMachine(Door $SM);
+    public function onEnterState();
+    public function onExitState();
     public function open();
     public function close();
     public function lock();

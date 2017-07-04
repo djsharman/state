@@ -81,7 +81,7 @@ foreach($file_list as $file) {
     $states            = $parser->getStates();
 
     $generator = new InterfaceGenerator;
-    $generator->generate($namespace, $operations, $interfaceName, $target_dir);
+    $generator->generate($namespace, $operations, $className, $interfaceName, $target_dir);
     
     
     $generator = new TransitionExceptionGenerator;
@@ -89,7 +89,7 @@ foreach($file_list as $file) {
     
 
     $generator = new AbstractStateClassGenerator;
-    $generator->generate($namespace, $operations, $abstractClassName, $interfaceName, $target_dir);
+    $generator->generate($namespace, $operations, $className, $abstractClassName, $interfaceName, $target_dir);
 
     $generator = new ClassGenerator;
     $generator->generate($namespace, $operations, $states, $className, $interfaceName, $target_dir);

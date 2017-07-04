@@ -1,0 +1,6 @@
+digraph _examples_statemachinesDoor {
+"OpenDoorState" -> "ClosedDoorState" [ color=blue, label = "close"];
+"ClosedDoorState" -> "OpenDoorState" [ color=blue, label = "open"];
+"ClosedDoorState" -> "LockedDoorState" [ color=blue, label = "lock"];
+"LockedDoorState" -> "ClosedDoorState" [ color=blue, label = "unlock"];
+}

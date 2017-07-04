@@ -15,6 +15,9 @@ interface PwrCallState {
 //###END_CUSTOMCODE2
 
 
+    public function setParentStateMachine(PwrCall $SM);
+    public function onEnterState();
+    public function onExitState();
     public function reqRegState();
     public function cancel();
     public function wpComplete();

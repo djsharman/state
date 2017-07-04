@@ -15,6 +15,18 @@ abstract class AbstractPwrCallState implements PwrCallState {
 
 //###END_CUSTOMCODE2
 
+    public function setParentStateMachine(PwrCall $SM) {
+        $this->SM = $SM;
+    }
+
+    public function onEnterState() {
+
+    }
+
+    public function onExitState() {
+
+    }
+
     /**
      * @throws IllegalStateTransitionException
      */

@@ -1,2 +1,2 @@
 
-    public function ___METHOD___();
+    public function ___METHOD___(___PARAM___);

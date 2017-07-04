@@ -77,8 +77,15 @@ class Door {
 
 
 
-    private function setState(DoorState $state) {
+    public function setState(DoorState $state) {
+
+        if($this->state !== null) {
+            $this->state->onExitState();
+        }
+
         $this->state = $state;
+        $this->state->onEnterState();
+
     }
 
 }

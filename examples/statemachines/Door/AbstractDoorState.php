@@ -15,6 +15,18 @@ abstract class AbstractDoorState implements DoorState {
 
 //###END_CUSTOMCODE2
 
+    public function setParentStateMachine(Door $SM) {
+        $this->SM = $SM;
+    }
+
+    public function onEnterState() {
+
+    }
+
+    public function onExitState() {
+
+    }
+
     /**
      * @throws IllegalStateTransitionException
      */
