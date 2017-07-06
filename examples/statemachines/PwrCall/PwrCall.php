@@ -6,7 +6,7 @@ namespace examples\statemachines\PwrCall;
     
 
 //###END_CUSTOMCODE1
-class PwrCall {
+class PwrCall  implements \examples\statemachines\PwrCall\MustHaveInterface {
     /**
      * @var PwrCallState
      */
@@ -15,7 +15,19 @@ class PwrCall {
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE2
 
-    
+    /**
+     * @throws IllegalStateTransitionException
+     */
+    public function MustHaveFunction1(){
+
+    }
+
+    /**
+     * @throws IllegalStateTransitionException
+     */
+    public function MustHaveFunction2() {
+
+    }
 
 //###END_CUSTOMCODE2
 

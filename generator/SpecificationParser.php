@@ -36,14 +36,26 @@ class SpecificationParser
     public function getNamespace()
     {
         return $this->dom->queryOne('configuration/namespace')->getAttribute('name');
+
     }
 
     /**
      * @return string
      */
-    public function getInterfaceClassName()
+    public function getSMImplements()
     {
-        return $this->dom->queryOne('configuration/interface')->getAttribute('name');
+
+        $ret = '';
+        try{
+            $DomElem = $this->dom->queryOne('configuration/sm_implements');
+            if($DomElem != null) {
+                $ret = $DomElem->getAttribute('name');
+            }
+        } catch (\Exception $e) {
+
+        }
+
+        return $ret;
     }
 
     /**

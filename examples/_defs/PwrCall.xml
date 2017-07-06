@@ -3,6 +3,7 @@
  <configuration>
   <targetdir name="statemachines"/>
   <namespace name="examples\statemachines"/>
+  <sm_implements name="\examples\statemachines\PwrCall\MustHaveInterface"/>
  </configuration>
  <states>
   <state name="StartUpState"/>

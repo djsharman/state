@@ -72,6 +72,8 @@ foreach($file_list as $file) {
     $conf_target_dir   = $parser->getTargetDir();
     $target_dir        = $base_dir.'/'.$conf_target_dir.'/'.$className.'/';
     $target_test_dir   = $target_dir.'/test/';
+    $sm_implements      = $parser->getSMImplements();
+    // $sm_implements = '';
 
     checkDirExists($target_dir);
     checkDirExists($target_test_dir);
@@ -92,7 +94,7 @@ foreach($file_list as $file) {
     $generator->generate($namespace, $operations, $className, $abstractClassName, $interfaceName, $target_dir);
 
     $generator = new ClassGenerator;
-    $generator->generate($namespace, $operations, $states, $className, $interfaceName, $target_dir);
+    $generator->generate($namespace, $operations, $states, $className, $interfaceName, $sm_implements, $target_dir);
 
     $codeGenerator = new StateClassGenerator();
     $testGenerator = new TestGenerator;
