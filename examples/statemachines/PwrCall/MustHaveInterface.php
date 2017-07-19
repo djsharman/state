@@ -1,5 +1,5 @@
 <?php
-namespace examples\statemachines\PwrCall
+namespace examples\statemachines\PwrCall;
 
 /**
  * Interface MustHaveInterface

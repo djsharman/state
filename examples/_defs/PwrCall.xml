@@ -4,6 +4,7 @@
   <targetdir name="statemachines"/>
   <namespace name="examples\statemachines"/>
   <sm_implements name="\examples\statemachines\PwrCall\MustHaveInterface"/>
+  <sm_extends name="\examples\statemachines\PwrCall\SMAbstract"/>
  </configuration>
  <states>
   <state name="StartUpState"/>

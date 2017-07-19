@@ -6,7 +6,7 @@ namespace examples\statemachines\PwrCall;
     
 
 //###END_CUSTOMCODE1
-class PwrCall  implements \examples\statemachines\PwrCall\MustHaveInterface {
+class PwrCall extends \examples\statemachines\PwrCall\SMAbstract  implements \examples\statemachines\PwrCall\MustHaveInterface {
     /**
      * @var PwrCallState
      */

@@ -7,13 +7,20 @@ class ClassGenerator extends GenBase
      * @param string $className
      * @param string $interfaceName
      */
-    public function generate($namespace, array $operations, array $states, $className, $interfaceName, $sm_implements, $target_dir)
+    public function generate($namespace, array $operations, array $states, $className, $interfaceName, $sm_extends, $sm_implements, $target_dir)
     {
         $output_filename = $target_dir.$className.'.php';
 
         $this->procExistingContent($output_filename);
 
-        if(!empty($sm_implements)) {
+        if(!empty($sm_extends)) {
+            $extends = ' extends '.$sm_extends.' ';
+        } else {
+            $extends = '';
+        }
+
+
+            if(!empty($sm_implements)) {
             $implements = ' implements '.$sm_implements.' ';
         } else {
             $implements = '';
@@ -71,6 +78,7 @@ class ClassGenerator extends GenBase
                     '___SET_STATE___',
                     '___CLASS___',
                     '___INTERFACE___',
+                    '___EXTENDS___',
                     '___IMPLEMENTS___',
                     '___METHODS___'
                 ),
@@ -82,6 +90,7 @@ class ClassGenerator extends GenBase
                     $set_state,
                     $className,
                     $interfaceName,
+                    $extends,
                     $implements,
                     $buffer
                 ),

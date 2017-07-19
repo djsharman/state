@@ -59,6 +59,25 @@ class SpecificationParser
     }
 
     /**
+     * @return string
+     */
+    public function getSMExtends()
+    {
+
+        $ret = '';
+        try{
+            $DomElem = $this->dom->queryOne('configuration/sm_extends');
+            if($DomElem != null) {
+                $ret = $DomElem->getAttribute('name');
+            }
+        } catch (\Exception $e) {
+
+        }
+
+        return $ret;
+    }
+
+    /**
      * @return array
      */
     public function getOperations()

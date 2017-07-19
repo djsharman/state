@@ -6,7 +6,7 @@ namespace examples\statemachines\Door;
     
 
 //###END_CUSTOMCODE1
-class Door {
+class Door{
     /**
      * @var DoorState
      */

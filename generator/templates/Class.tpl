@@ -6,7 +6,7 @@ namespace ___NAMESPACE___;
 ___CUSTOMCODE_SECTION1___
 
 //###END_CUSTOMCODE1
-class ___CLASS___ ___IMPLEMENTS___{
+class ___CLASS______EXTENDS______IMPLEMENTS___{
     /**
      * @var ___INTERFACE___
      */
