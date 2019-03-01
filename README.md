@@ -1,4 +1,4 @@
-#State Updated
+# Changes added by Darren Sharman
 
 This is a State machine generator based on the work of Sebastian Bergmann (thank you Sebastian).
 
